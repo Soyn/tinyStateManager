@@ -1,0 +1,19 @@
+{
+  "name": "tinystatemanager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Soyn/tinyStateManager.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Soyn/tinyStateManager/issues"
+  },
+  "homepage": "https://github.com/Soyn/tinyStateManager#readme"
+}
