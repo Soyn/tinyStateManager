@@ -1,0 +1,16 @@
+#score {
+  height: 50px;
+  width: 100px;
+  text-align: center;
+  line-height: 50px;
+  font-size: 30px;
+}
+
+#score span {
+  vertical-align: middle;
+  display: inline-block;
+}
+button {
+  margin-right: 5px;
+  margin-top: 5px;
+}

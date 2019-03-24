@@ -14,12 +14,13 @@ export class Store {
     this.status = Status.Resting;
     this.state = new Proxy(params.state || {}, {
       set: (state, key, value) => {
-        this.state[key] = value;
+        state[key] = value;
         this.events.publish('stateChanged', this.state);
         if (this.status !== Status.Mutating) {
           console.warn('You Should Mutate Your State By Action!');
         }
         this.status = Status.Resting;
+        return true;
       }
     });
   }
@@ -27,7 +28,6 @@ export class Store {
     this.status = Status.Mutating;
     if (typeof this.mutations[mutationType] === 'function') {
       this.mutations[mutationType](this.state, payload);
-      this.state = Object.assign({}, this.state);
     }
   }
   dispatch(actionType, payload){

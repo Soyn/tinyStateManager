@@ -3,10 +3,11 @@ import { Store } from './store';
 export default class Component {
   constructor(props) {
     if (props.store instanceof Store) {
-      this.store = props.store.events.subscribe('stateChanged', (state) => this.render(state));
+      this.store = props.store;
+      this.store.events.subscribe('stateChanged', (state) => this.render(state));
     }
     if (props.hasOwnProperty('element')) {
-      this.element = PaymentResponse.element;
+      this.element = props.element;
     }
   }
   render() {}

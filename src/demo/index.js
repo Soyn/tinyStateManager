@@ -2,7 +2,7 @@ import { createStore, Component } from '../lib';
 const actionTypes = {
   Increase: 'Increase',
   Decrease: 'Decrease',
-  [actionTypes.Reset]: 'Reset',
+  Reset: 'Reset',
 };
 
 const mutations = {
@@ -19,8 +19,21 @@ const mutations = {
 
 const store = createStore({
   mutations,
+  state: {
+    count: 0,
+  },
 });
 
+const createButton = (props) => {
+  const { className, content, id } = props;
+  const btn = document.createElement('button');
+  btn.classList.add(className);
+  btn.innerHTML = content;
+  if (id) {
+    btn.id = id;
+  }
+  return btn;
+}
 class CounterBoard extends Component {
   constructor(props) {
     super({
@@ -28,27 +41,43 @@ class CounterBoard extends Component {
       element: props.element,
     });
     this.state = store.getState();
-  }
-  render() {
-    const score = document.createElement('div');
-    score.innerHtml = this.state.count || 0;
-    score.id = 'score';
-    this.element.appendChild(score);
-    const createButton = (props) => {
-      const { class, content, id } = props;
-      btn.innerHtml = `<button class=${class} id=${id}>${content}</button>`;
-      return btn;
-    }
+    this.score = document.createElement('div');
+    this.score.id = 'score';
 
-    const increateButton = createButton({
-      class: 'inc',
+    this.element.appendChild(this.score);
+    this.increateButton = createButton({
+      className: 'inc',
       content: '+',
     });
-    const decreaseButton = createButton({
-      class: 'dec',
+    this.decreaseButton = createButton({
+      className: 'dec',
       content: '-',
     });
-    this.element.appendChild([increateButton, decreaseButton])
+    this.resetButton = createButton({
+      className: 'reset',
+      content: 'Reset',
+    });
+    this.increateButton.addEventListener('click', () => {
+      this.store.dispatch(actionTypes.Increase);
+    });
+    this.decreaseButton.addEventListener('click', () => {
+      this.store.dispatch(actionTypes.Decrease);
+    });
+    this.resetButton.addEventListener('click', () => {
+      this.store.dispatch(actionTypes.Reset);
+    })
+    this.element.appendChild(this.increateButton);
+    this.element.appendChild(this.decreaseButton);
+    this.element.appendChild(this.resetButton);
+  }
+  render() {
+    this.score.innerHTML = `<span>${this.state.count}</span>`;
   }
 }
 
+const app = new CounterBoard({
+  store,
+  element: document.getElementById('root'),
+});
+
+app.render();

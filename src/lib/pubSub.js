@@ -18,6 +18,6 @@ export default class PubSub {
     if (!this.listeners[event]) {
       this.listeners[event] = [];
     }
-    this.listeners.event.push(callback);
+    this.listeners[event].push(callback);
   }
 }
